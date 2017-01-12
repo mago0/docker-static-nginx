@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sudo docker build -t static-nginx .
+
+sudo docker ps | grep static-nginx && \
+  (sudo docker stop nginx; sudo docker rm nginx)
+
+sudo docker run -d \
+  -v $HOME/www:/www \
+  -p 80:80 --name nginx static-nginx
